@@ -4,6 +4,7 @@ const path = require('path');
 
 
 const {pengguna,marketplace,komentar_kerajinan,kerajinan,like_kerajinan,komentar_marketplace, like_marketplace } = require('../controllers');
+const imageUploader = require('../helpers/image-uploader');
 
 // const storage = multer.diskStorage({
 //     destination:'./src/images/',
@@ -54,15 +55,15 @@ router.delete('/pengguna/delete/:id', pengguna.deletedatapengguna);
 
 router.get('/marketplace/', marketplace.getdatamarketplace);
 router.get('/marketplace/:id', marketplace.getdatamarketplacebyid);
-router.post('/marketplace/', upload.single('foto'), marketplace.adddatamarketplace);
-router.put('/marketplace/:id', upload.single('foto'), marketplace.editdatamarketplace);
+router.post('/marketplace/', imageUploader.upload.single('foto'), marketplace.adddatamarketplace);
+router.put('/marketplace/:id', imageUploader.upload.single('foto'), marketplace.editdatamarketplace);
 router.delete('/marketplace/delete/:id', marketplace.deletedatamarketplace);
 
 
 router.get('/kerajinan/', kerajinan.getdatakerajinan);
 router.get('/kerajinan/:id', kerajinan.getdatakerajinanbyid);
-router.post('/kerajinan/add',upload.single('foto'), kerajinan.adddatakerajinan);
-router.put('/kerajinan/:id',upload.single('foto'), kerajinan.editdatakerajinan);
+router.post('/kerajinan/add',imageUploader.upload.single('foto'), kerajinan.adddatakerajinan);
+router.put('/kerajinan/:id',imageUploader.upload.single('foto'), kerajinan.editdatakerajinan);
 router.delete('/kerajinan/:id', kerajinan.deletedatakerajinan);
 
 
@@ -79,14 +80,14 @@ router.delete('/like_marketplace/:pengguna_id/:marketplace_id', like_marketplace
 
 router.get('/komentar_marketplace', komentar_marketplace.getdatakomentar_marketplace);
 router.get('/komentar_marketplace/:id', komentar_marketplace.getdatakomentar_marketplacebyid);
-router.post('/komentar_marketplace/', upload.single('foto'),komentar_marketplace.adddatakomentar_marketplace);
-router.put('/komentar_marketplace/:id',upload.single('foto'), komentar_marketplace.editdatakomentar_marketplace);
+router.post('/komentar_marketplace/', imageUploader.upload.single('foto'),komentar_marketplace.adddatakomentar_marketplace);
+router.put('/komentar_marketplace/:id',imageUploader.upload.single('foto'), komentar_marketplace.editdatakomentar_marketplace);
 router.delete('/komentar_marketplace/:id', komentar_marketplace.deletedatakomentar_marketplace);
 
 router.get('/komentar_kerajinan/get', komentar_kerajinan.getDatakomentar_kerajinan);
 router.get('/komentar_kerajinan/get/:id', komentar_kerajinan.getDatakomentar_kerajinanByID);
-router.post('/komentar_kerajinan/add',upload.single('foto'), komentar_kerajinan.addDatakomentar_kerajinan);
-router.put('/komentar_kerajinan/edit/:id',upload.single('foto'), komentar_kerajinan.editDatakomentar_kerajinan);
+router.post('/komentar_kerajinan/add',imageUploader.upload.single('foto'), komentar_kerajinan.addDatakomentar_kerajinan);
+router.put('/komentar_kerajinan/edit/:id',imageUploader.upload.single('foto'), komentar_kerajinan.editDatakomentar_kerajinan);
 router.delete('/komentar_kerajinan/delete/:id', komentar_kerajinan.deleteDatakomentar_kerajinan);
 
 module.exports = router;
