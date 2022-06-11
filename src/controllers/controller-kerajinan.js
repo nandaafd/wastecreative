@@ -41,7 +41,7 @@ module.exports ={
         let data = {
             id : req.body.id,
             nama : req.body.nama,
-            foto : req.file.path,
+            foto : req.file.filename,
             bahan : req.body.bahan,
             alat : req.body.alat,
             langkah : req.body.langkah,
