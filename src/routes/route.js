@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const multer = require('multer');
 const path = require('path');
+
+
 const {pengguna,marketplace,komentar_kerajinan,kerajinan,like_kerajinan,komentar_marketplace, like_marketplace } = require('../controllers');
 
 // const storage = multer.diskStorage({
@@ -10,28 +12,28 @@ const {pengguna,marketplace,komentar_kerajinan,kerajinan,like_kerajinan,komentar
 //     }
 // });
 
-const diskStorage = multer.diskStorage({
-    destination:(req, file, cb) => {
-      cb(null, 'images');
-    },
-    // konfigurasi penamaan file yang unik
-    filename: (req, file, cb) => {
-      cb(null,new Date().getTime()+'-'+file.originalname);
-    },
-});
+// const diskStorage = multer.diskStorage({
+//     destination:(req, file, cb) => {
+//       cb(null, 'images');
+//     },
+//     // konfigurasi penamaan file yang unik
+//     filename: (req, file, cb) => {
+//       cb(null,new Date().getTime()+'-'+file.originalname);
+//     },
+// });
 
-const fileFilter = (req,file,cb)=>{
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
-        cb(null,true);
-    }else{
-        cb(null,false);
-    }
-}
+// const fileFilter = (req,file,cb)=>{
+//     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+//         cb(null,true);
+//     }else{
+//         cb(null,false);
+//     }
+// }
 
-const upload = multer({
-    storage: diskStorage,
-    fileFilter: fileFilter
-})
+// const upload = multer({
+//     storage: diskStorage,
+//     fileFilter: fileFilter
+// })
  
 
 // GET localhost:8080/karyawan => Ambil data semua karyawan
@@ -40,6 +42,7 @@ const upload = multer({
 // PUT localhost:8080/karyawan/edit/2 => Edit data karyawan berdasarkan id = 2
 // DELETE localhost:8080/karyawan/delete/2 => Delete data karyawan berdasarkan id = 2
 
+// router.post('/uploads', imageUploader.upload.single('image'), imageController.upload);
 
 router.get('/pengguna/', pengguna.getdatapengguna);
 router.get('/pengguna/:id', pengguna.getdatapenggunabyid);
@@ -51,8 +54,8 @@ router.delete('/pengguna/delete/:id', pengguna.deletedatapengguna);
 
 router.get('/marketplace/', marketplace.getdatamarketplace);
 router.get('/marketplace/:id', marketplace.getdatamarketplacebyid);
-router.post('/marketplace/',upload.single('foto'), marketplace.adddatamarketplace);
-router.put('/marketplace/:id',upload.single('foto'), marketplace.editdatamarketplace);
+router.post('/marketplace/', upload.single('foto'), marketplace.adddatamarketplace);
+router.put('/marketplace/:id', upload.single('foto'), marketplace.editdatamarketplace);
 router.delete('/marketplace/delete/:id', marketplace.deletedatamarketplace);
 
 
