@@ -1,5 +1,6 @@
 const db = require('../configs/database_config');
 const crypto = require('randomstring');
+const moment = require('moment');
 
 module.exports ={
     // Ambil data semua komentar_marketplace
@@ -22,7 +23,7 @@ module.exports ={
         let id = req.params.id;
             db.query(
                 `
-                SELECT * FROM komentar_marketplace WHERE id = ?;
+                SELECT * FROM komentar_marketplace WHERE marketplace_id = ? ORDER BY tgl DESC;
                 `
             , [id],
             function (error, results) {
@@ -30,18 +31,18 @@ module.exports ={
                 res.send({ 
                     success: true, 
                     message: 'Berhasil ambil data!',
-                    data: results
+                    comments: results
                 });
             });
     },
     // Simpan data komentar_marketplace
     adddatakomentar_marketplace(req,res){
         var uid = crypto.generate({length: 50}) + new Date().toISOString().replace(/T/, '').replace(/\..+/, '').replace(/-/, '').replace(/-/, '').replace(/:/, '').replace(/:/, '');
+        let timeStamp = moment().utc().format('YYYY-MM-DD HH:mm:ss')
         let data = {
             id : req.body.id,
             komentar : req.body.komentar,
-            tgl : req.body.tgl,
-            foto : req.file.path,
+            tgl : timeStamp,
             marketplace_id : req.body.marketplace_id,
             pengguna_id : req.body.pengguna_id
         }
