@@ -8,7 +8,6 @@ app.use(bodyParser.json())
 
 
 const appRoute = require('./src/routes/route');
-const imageRoute = require('./src/routes/images');
 
 app.use('/', appRoute);
 app.use('/images', express.static('images'));

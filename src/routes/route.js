@@ -60,11 +60,11 @@ router.put('/marketplace/:id', imageUploader.upload.single('foto'), marketplace.
 router.delete('/marketplace/delete/:id', marketplace.deletedatamarketplace);
 
 
-router.get('/kerajinan/', kerajinan.getdatakerajinan);
-router.get('/kerajinan/:id', kerajinan.getdatakerajinanbyid);
-router.post('/kerajinan/add',imageUploader.upload.single('foto'), kerajinan.adddatakerajinan);
-router.put('/kerajinan/:id',imageUploader.upload.single('foto'), kerajinan.editdatakerajinan);
-router.delete('/kerajinan/:id', kerajinan.deletedatakerajinan);
+router.get('/craft/', kerajinan.getdatakerajinan);
+router.get('/craft/:id', kerajinan.getdatakerajinanbyid);
+router.post('/craft',imageUploader.upload.single('foto'), kerajinan.adddatakerajinan);
+router.put('/craft/:id',imageUploader.upload.single('foto'), kerajinan.editdatakerajinan);
+router.delete('/craft/:id', kerajinan.deletedatakerajinan);
 
 
 router.get('/like_kerajinan', like_kerajinan.getdatalike_kerajinan);
@@ -78,11 +78,11 @@ router.post('/like_marketplace/', like_marketplace.adddatalike_marketplace);
 router.delete('/like_marketplace/:pengguna_id/:marketplace_id', like_marketplace.deletedatalike_marketplace);
 
 
-router.get('/komentar_marketplace', komentar_marketplace.getdatakomentar_marketplace);
-router.get('/komentar_marketplace/:id', komentar_marketplace.getdatakomentar_marketplacebyid);
-router.post('/komentar_marketplace/', imageUploader.upload.single('foto'),komentar_marketplace.adddatakomentar_marketplace);
-router.put('/komentar_marketplace/:id',imageUploader.upload.single('foto'), komentar_marketplace.editdatakomentar_marketplace);
-router.delete('/komentar_marketplace/:id', komentar_marketplace.deletedatakomentar_marketplace);
+router.get('/marketplace-comment/', komentar_marketplace.getdatakomentar_marketplace);
+router.get('/marketplace-comment/:id', komentar_marketplace.getdatakomentar_marketplacebyid);
+router.post('/marketplace-comment/', imageUploader.upload.single('foto'),komentar_marketplace.adddatakomentar_marketplace);
+router.put('/marketplace-comment/:id',imageUploader.upload.single('foto'), komentar_marketplace.editdatakomentar_marketplace);
+router.delete('/marketplace-comment/:id', komentar_marketplace.deletedatakomentar_marketplace);
 
 router.get('/komentar_kerajinan/get', komentar_kerajinan.getDatakomentar_kerajinan);
 router.get('/komentar_kerajinan/get/:id', komentar_kerajinan.getDatakomentar_kerajinanByID);
