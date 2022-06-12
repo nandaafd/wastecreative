@@ -64,6 +64,7 @@ router.get('/craft/', kerajinan.getdatakerajinan);
 router.get('/craft/:id', kerajinan.getdatakerajinanbyid);
 router.post('/craft',imageUploader.upload.single('foto'), kerajinan.adddatakerajinan);
 router.post('/recommend-craft',kerajinan.recommendkerajinan);
+router.get('/search-craft',kerajinan.searchkerajinan);
 router.put('/craft/:id',imageUploader.upload.single('foto'), kerajinan.editdatakerajinan);
 router.delete('/craft/:id', kerajinan.deletedatakerajinan);
 

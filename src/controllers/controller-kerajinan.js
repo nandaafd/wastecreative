@@ -25,34 +25,63 @@ module.exports ={
         });
 
     },
-    // Rekomendasi kerajinan based on bahan
     recommendkerajinan(req,res){
         var arrData = [];
         let dataBhn={
             query : req.body.bahan,
         };
-        dataBhn.query.forEach( (i) => arrData.push( () => i  ) )
-        // db.query(
-        //     `
-        //     SELECT
-        //         *
-        //     FROM
-        //         kerajinan
-        //     WHERE
-        //         id IN (
-        //             SELECT id_ker FROM bahan WHERE bahan IN (?)
-        //         );
-        //     `
-        //     , [arrData],
-        //     function (error, results) {
-        //         if(error) throw error;  
-        //         res.send({ 
-        //             success: true, 
-        //             message: 'Search success!',
-        //             data: results,
-        //         });
-        //     }
-        // );
+        if (Array.isArray(dataBhn.query)) {
+            dataBhn.query.forEach( (i) => arrData.push(i)) 
+        }else{
+            arrData.push( dataBhn.query )
+        }
+        console.log(arrData[0]);
+        db.query(
+            `
+            SELECT
+                *
+            FROM
+                kerajinan
+            WHERE
+                id IN (
+                    SELECT id_ker FROM bahan WHERE bahan IN (?)
+                );
+            `
+            , [arrData],
+            function (error, results) {
+                if(error) throw error;  
+                res.send({ 
+                    success: true, 
+                    message: 'Search success!',
+                    data: results,
+                });
+            }
+        );
+           
+    },
+    searchkerajinan(req,res){
+        let data={
+            query : req.query.s,
+        };
+        db.query(
+            `
+            SELECT
+                *
+            FROM
+                kerajinan
+            WHERE
+                nama LIKE '%`+data.query+`';
+            `
+            ,
+            function (error, results) {
+                if(error) throw error;  
+                res.send({ 
+                    success: true, 
+                    message: 'Search success!',
+                    data: results,
+                });
+            }
+        );
            
     },
     // Ambil data kerajinan berdasarkan ID
