@@ -8,18 +8,14 @@ module.exports ={
         var page = req.query.page || 1;
         var numPerPage = req.query.limit || 15;
         var skip = (page-1) * numPerPage; 
-        var limit = skip + ',' + numPerPage; // Here we compute the LIMIT parameter for MySQL query
+        var limit = skip + ',' + numPerPage;
         db.query('SELECT count(*) as numRows FROM marketplace',function (err, rows, fields) {
             if(err) throw err;
-            
-                var numRows = rows[0].numRows;
-                var numPages = Math.ceil(numRows / numPerPage);
                 db.query(`
                 SELECT marketplace.id, marketplace.judul, marketplace.foto,marketplace.tgl, pengguna.username AS userName, pengguna.foto AS userPhoto, pengguna.id AS pengguna_id FROM marketplace INNER JOIN pengguna ON marketplace.pengguna_id=pengguna.id
                 ORDER BY marketplace.tgl DESC
                 LIMIT ` + limit,function (err, results, fields) {
                     if(err) throw err;
-
                     res.send({ 
                         success: true, 
                         message: 'Berhasil ambil data!',
@@ -41,7 +37,7 @@ module.exports ={
                 res.send({ 
                     success: true, 
                     message: 'Berhasil ambil data!',
-                    data: results
+                    data: results[0]
                 });
             });
     },
