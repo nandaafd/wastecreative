@@ -101,13 +101,21 @@ module.exports ={
                 , [results[0].id],
                 function (error, bahan) {
                     if(error) throw error; 
+                    if(!results[0]) {
+                        res.sendStatus(404)
+                        return false;
+                    }
                     db.query(
                     `
                     SELECT * FROM pengguna WHERE id = ?;
                     `
                     , [results[0].pengguna_id],
                         function (error, datas) {
-                            if(error) throw error; 
+                            if(error) throw error;
+                            if(!results[0]) {
+                                res.sendStatus(404)
+                                return false;
+                            } 
                             results[0].userName = datas[0].username||""
                             results[0].userPhoto = datas[0].foto||""
                             var arrData = []
