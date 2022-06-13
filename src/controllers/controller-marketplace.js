@@ -28,17 +28,31 @@ module.exports ={
     getdatamarketplacebyid(req,res){
         let id = req.params.id;
         db.query(
-                `
-                SELECT * FROM marketplace WHERE id = ?;
-                `
+            `
+            SELECT * FROM marketplace WHERE id = ?;
+            `
             , [id],
             function (error, results) {
-                if(error) throw error;  
-                res.send({ 
-                    success: true, 
-                    message: 'Berhasil ambil data!',
-                    data: results[0]
-                });
+                if(error) throw error; 
+                if(!results[0]) {
+                    res.sendStatus(404)
+                    return false;
+                }
+                db.query(
+                `
+                SELECT * FROM pengguna WHERE id = ?;
+                `
+                , [results[0].pengguna_id],
+                function (error, user) {
+                    if(error) throw error; 
+                        results[0].userName = user[0].username||""
+                        results[0].userPhoto = user[0].foto||""
+                        res.send({ 
+                            success: true, 
+                            message: 'Berhasil ambil data!',
+                            data: results[0]
+                        });
+                    });
             });
     },
     // Simpan data marketplace

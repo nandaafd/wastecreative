@@ -78,7 +78,7 @@ module.exports ={
             email : req.body.email,
             password : req.body.password,
             username : req.body.username,
-            foto : req.body.foto,
+            foto : "1655131489559.jpg",
             tmp_lahir : req.body.tmp_lahir || "",
             tgl_lahir : req.body.tgl_lahir ,
             jk : req.body.jk || "",
