@@ -40,23 +40,23 @@ module.exports ={
     },
 
     getdatapenggunabyusername(req,res){
-        let username = req.body.username;
+        let email = req.body.email;
         let password = req.body.password;
         db.query(
                 `
-                SELECT * FROM pengguna WHERE username = ?;
+                SELECT * FROM pengguna WHERE email = ?;
                 `
-            , [username],
+            , [email],
             function (error, results) {
                 
                 results.forEach((data)=>{
 
-                        if (username==`${data.username}` && password==`${data.password}`) {
+                        if (email==`${data.email}` && password==`${data.password}`) {
                             if(error) throw error;  
                             res.send({ 
                                 success: true, 
                                 message: 'Berhasil login!',
-                                data: results
+                                data: results[0]
                             });
                         } else {
                             if(error) throw error;  
@@ -78,10 +78,11 @@ module.exports ={
             email : req.body.email,
             password : req.body.password,
             username : req.body.username,
-            tmp_lahir : req.body.tmp_lahir,
-            tgl_lahir : req.body.tgl_lahir,
-            jk : req.body.jk,
-            alamat : req.body.alamat
+            foto : req.body.foto,
+            tmp_lahir : req.body.tmp_lahir || "",
+            tgl_lahir : req.body.tgl_lahir ,
+            jk : req.body.jk || "",
+            alamat : req.body.alamat|| "",
         }
         db.query(
                 `

@@ -22,8 +22,12 @@ module.exports ={
     getdatakomentar_marketplacebyid(req,res){
         let id = req.params.id;
             db.query(
+                // `
+                // SELECT * FROM komentar_marketplace WHERE marketplace_id = ? ORDER BY tgl DESC;
+                // `
                 `
-                SELECT * FROM komentar_marketplace WHERE marketplace_id = ? ORDER BY tgl DESC;
+                SELECT komentar_marketplace.id, komentar_marketplace.komentar, komentar_marketplace.tgl, komentar_marketplace.marketplace_id, komentar_marketplace.pengguna_id, pengguna.username AS userName, pengguna.foto AS userPhoto FROM komentar_marketplace INNER JOIN pengguna ON komentar_marketplace.pengguna_id = pengguna.id where komentar_marketplace.marketplace_id  = ? 
+                ORDER BY komentar_marketplace.tgl DESC
                 `
             , [id],
             function (error, results) {
@@ -56,6 +60,7 @@ module.exports ={
                 res.send({ 
                     success: true, 
                     message: 'Berhasil tambah data!',
+                    data : data.komentar
                 });
             });
     },
